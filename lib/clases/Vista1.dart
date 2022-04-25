@@ -19,16 +19,20 @@ class _Vista1State extends State<Vista1> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(backgroundColor: Colors.transparent,
-      leading: IconButton(onPressed: null, icon: Icon(Icons.menu)),
-      title: Text('Parcial 3 electiva'),
+      leading: IconButton(onPressed: null, icon: Icon(Icons.menu),),
+      title: Text('Parcial 3 electiva'), 
       ),
       body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         ElevatedButton(child: Text("Consumir API"), onPressed: (){
-          Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: consumoAPISW()));
-        },)
-      ],)),
+          Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: consumoAPISW()
+          ));
+        }
+        ,)
+      ],
+      )
+      ),
   );
   
   }

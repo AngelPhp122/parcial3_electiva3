@@ -7,6 +7,7 @@ import 'package:parcial3_electiva3/clases/Vista1.dart';
 import 'package:parcial3_electiva3/main.dart';
 import 'package:parcial3_electiva3/clases/Datos.dart';
 import 'package:http/http.dart' as http;
+import 'package:page_transition/page_transition.dart';
 
 
 
@@ -85,7 +86,8 @@ class _consumoAPISWState extends State<consumoAPISW> {
      title: "consumo de la api",
      home: Scaffold(
        appBar: AppBar(
-         title: Text("API Star Wars"),
+         flexibleSpace: encabezado(),
+         toolbarHeight: 160,
        ),
        body: futureBuilder,
      ),
@@ -103,7 +105,7 @@ class _consumoAPISWState extends State<consumoAPISW> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
+              children: <Widget>[Text("id: "+(itempk.id).toString()),
                // Text(itempk.num),
                 Container(
                   padding: EdgeInsets.all(2.0),
@@ -113,7 +115,7 @@ class _consumoAPISWState extends State<consumoAPISW> {
                     image: DecorationImage(image: NetworkImage(itempk.url), scale: 0.05),
                   ),
                 ),
-                Text(itempk.title), 
+                Text("Titulo: " + itempk.title), 
               ],
             ),
           )
@@ -123,4 +125,93 @@ class _consumoAPISWState extends State<consumoAPISW> {
     }return datos;
   }
 
+  Widget encabezado() {
+    List categorias = ["Las de cantina", "Las del momento", "Favoritas", "Populares", "Clasicas"];
+    return Container(
+      decoration: BoxDecoration(color: Colors.blueAccent),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  onPressed: (){Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: Vista1()),);}, icon: Icon(Icons.arrow_back)
+                ),
+                
+                
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+            child: TextField(
+              
+              decoration: InputDecoration(
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                hintText: 'Buscar',
+                fillColor: Colors.grey,
+                filled: true,
+                prefixIcon: Icon(Icons.search),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20, top: 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: List.generate(categorias.length, (index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 40),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {});
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                categorias[index],
+                                style: TextStyle(
+                                    //color: Colors.grey,
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              SizedBox(
+                                height: 3,
+                              ),
+                              Container(
+                                width: 20,
+                                height: 5,
+                                decoration: BoxDecoration(
+                                    color: Colors.redAccent,
+                                    borderRadius: BorderRadius.circular(5)),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
+
+
